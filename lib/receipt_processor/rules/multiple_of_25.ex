@@ -1,6 +1,10 @@
 defmodule ReceiptProcessor.Rules.MultipleOf25 do
   @name :multiple_of_25
 
+  @moduledoc """
+  rule: 25 points if the total is a multiple of 0.25.
+  """
+
   def handle({receipt, scoreboard}) do
     result = receipt_handler(receipt)
     points_awarded = points_handler(result)

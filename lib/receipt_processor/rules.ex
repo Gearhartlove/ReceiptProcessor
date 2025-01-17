@@ -2,6 +2,10 @@ defmodule ReceiptProcessor.Rules do
   alias ReceiptProcessor.Schemas.Receipt
   alias ReceiptProcessor.Scoreboard
 
+  @doc """
+  For a provided reciept, run every rule against that receipt. Then calculate the total and
+  write a log message summarizing the results.
+  """
   def score(receipt = %Receipt{}) do
     {receipt, Scoreboard.empty()}
     |> ReceiptProcessor.Rules.Alphanumeric.handle()
@@ -16,6 +20,7 @@ defmodule ReceiptProcessor.Rules do
     |> logBreakdown()
   end
 
+  @doc false
   defp total({receipt, %{rules: rules} = scoreboard}) do
     total =
       rules
@@ -27,6 +32,7 @@ defmodule ReceiptProcessor.Rules do
     {receipt, scoreboard}
   end
 
+  @doc false
   defp reverseScoreboardRules({receipt, %{rules: rules} = scoreboard}) do
     {
       receipt,
@@ -35,6 +41,7 @@ defmodule ReceiptProcessor.Rules do
     }
   end
 
+  @doc false
   defp logBreakdown({receipt, %{rules: rules, total: total} = scoreboard}) do
     breakdown =
       rules

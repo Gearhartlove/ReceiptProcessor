@@ -1,6 +1,11 @@
 defmodule ReceiptProcessor.Rules.DescMultipleOf3 do
   @name :desc_multiple_of_3
 
+  @moduledoc """
+  If the trimmed length of the item description is a multiple of 3, multiply the price 
+  by 0.2 and round up to the nearest integer. The result is the number of points earned.
+  """
+
   def handle({receipt, scoreboard}) do
     result = receipt_handler(receipt)
     points_awarded = points_handler(result)

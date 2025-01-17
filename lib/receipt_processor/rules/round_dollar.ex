@@ -1,6 +1,10 @@
 defmodule ReceiptProcessor.Rules.RoundDollar do
   @name :round_dollar
 
+  @moduledoc """
+  rule: 50 points if the total is a round dollar amount with no cents.
+  """
+
   def handle({receipt, scoreboard}) do
     result = receipt_handler(receipt)
     points_awarded = points_handler(result)

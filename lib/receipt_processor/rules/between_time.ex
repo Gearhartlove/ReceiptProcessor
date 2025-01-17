@@ -1,6 +1,10 @@
 defmodule ReceiptProcessor.Rules.BetweenTime do
   @name :between_time
 
+  @moduledoc """
+  rule: 10 points if the time of purchase is after 2:00pm and before 4:00pm.
+  """
+
   def handle({receipt, scoreboard}) do
     result = receipt_handler(receipt)
     points_awarded = points_handler(result)

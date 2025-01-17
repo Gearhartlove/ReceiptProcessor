@@ -14,10 +14,6 @@ defmodule ReceiptProcessor.Router do
     ReceiptProcessor.Controller.points(conn)
   end
 
-  get "/hello" do
-    send_resp(conn, 200, "world")
-  end
-
   match _ do
     send_resp(conn, 404, "not found")
   end

@@ -1,6 +1,10 @@
 defmodule ReceiptProcessor.Rules.CountPairs do
   @name :count_pairs
 
+  @moduledoc """
+  rule: 5 points for every two items on the receipt.
+  """
+
   def handle({receipt, scoreboard}) do
     result = receipt_handler(receipt)
     points_awarded = points_handler(result)

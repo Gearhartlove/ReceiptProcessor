@@ -1,6 +1,10 @@
 defmodule ReceiptProcessor.Rules.Alphanumeric do
   @name :alphanumeric
 
+  @moduledoc """
+  rule: One point for every alphanumeric character in the retailer name.
+  """
+
   def handle({receipt, scoreboard}) do
     count = receipt_handler(receipt)
     points_awarded = points_handler(count)

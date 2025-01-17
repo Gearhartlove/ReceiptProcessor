@@ -1,4 +1,8 @@
 defmodule ReceiptProcessor.Scoreboard do
+  @moduledoc """
+  A collection of utilities for updating a scoreboard.
+  """
+
   def empty(), do: %{rules: []}
 
   def update(

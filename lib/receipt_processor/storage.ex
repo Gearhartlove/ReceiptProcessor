@@ -1,6 +1,11 @@
 defmodule ReceiptProcessor.Storage do
   use Agent
 
+  @moduledoc """
+  A simple storage map responsible for storing and looking up receipt scoreboard executions
+  via a unique id.
+  """
+
   def start_link(initial_value) do
     Agent.start_link(fn -> initial_value end, name: __MODULE__)
   end

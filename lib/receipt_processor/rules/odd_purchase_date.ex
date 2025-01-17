@@ -1,6 +1,10 @@
 defmodule ReceiptProcessor.Rules.OddPurchaseDate do
   @name :odd_purchase_date
 
+  @moduledoc """
+  rule: 6 points if the day in the purchase date is odd.
+  """
+
   def handle({receipt, scoreboard}) do
     result = receipt_handler(receipt)
     points_awarded = points_handler(result)

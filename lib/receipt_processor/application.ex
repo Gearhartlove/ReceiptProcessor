@@ -1,5 +1,10 @@
 defmodule ReceiptProcessor.Application do
   use Application
+  
+  @moduledoc """
+  This module contains the application supervision tree logic for ReceiptProcessor.
+  The only spawned process is Bandit.
+  """
 
   @impl true
   def start(_type, _args) do
