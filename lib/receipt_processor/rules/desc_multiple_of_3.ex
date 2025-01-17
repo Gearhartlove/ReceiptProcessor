@@ -1,16 +1,19 @@
 defmodule ReceiptProcessor.Rules.DescMultipleOf3 do
   @name :desc_multiple_of_3
 
-  def handle(receipt, scoreboard) do
+  def handle({receipt, scoreboard}) do
     result = receipt_handler(receipt)
     points_awarded = points_handler(result)
     
-    scoreboard
-    |> ReceiptProcessor.Scoreboard.update(
-      @name,
-      result |> Enum.count(),
-      points_awarded
-    )
+    {
+      receipt,
+      ReceiptProcessor.Scoreboard.update(
+        scoreboard,
+        @name,
+        result |> Enum.count(),
+        points_awarded
+      )
+    }
   end
 
   defp points_handler(items) do

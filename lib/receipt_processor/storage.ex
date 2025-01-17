@@ -5,9 +5,9 @@ defmodule ReceiptProcessor.Storage do
     Agent.start_link(fn -> initial_value end, name: __MODULE__)
   end
 
-  def save(receiptId, scoreboard) do
+  def save(receiptId, {receipt, scoreboard}) do
     storage()
-    |> Map.put(receiptId, scoreboard)
+    |> Map.put(receiptId, {receipt, scoreboard})
   end
 
   def get(receiptId) do

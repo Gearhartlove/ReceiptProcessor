@@ -1,12 +1,14 @@
 defmodule ReceiptProcessor.Rules.MultipleOf25 do
   @name :multiple_of_25
 
-  def handle(receipt, scoreboard) do
+  def handle({receipt, scoreboard}) do
     result = receipt_handler(receipt)
     points_awarded = points_handler(result)
     
-    scoreboard
-    |> ReceiptProcessor.Scoreboard.update(@name, result, points_awarded)
+    {
+      receipt, 
+      ReceiptProcessor.Scoreboard.update(scoreboard, @name, result, points_awarded)
+    }
   end
 
   defp points_handler(true), do: 25

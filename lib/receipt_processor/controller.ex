@@ -3,12 +3,10 @@ defmodule ReceiptProcessor.Controller do
   import Plug.Conn
 
   def process(conn) do
-    IO.inspect(conn)
-
     receipt = %Receipt{} = conn.body_param
     scoreboard = ReceiptProcessor.Rules.score(receipt)
     id = :erlang.unique_integer()
-    ReceiptProcessor.Storage.save(id, scoreboard)
+    ReceiptProcessor.Storage.save(id, {receipt, scoreboard})
 
     response = %{id: id}
       |> JSON.encode!()
@@ -17,7 +15,6 @@ defmodule ReceiptProcessor.Controller do
   end
 
   def points(conn) do
-    IO.inspect(conn)
     id = conn.params[:id]
     points = ReceiptProcessor.Storage.get(id)
 

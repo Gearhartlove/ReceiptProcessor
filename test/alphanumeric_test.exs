@@ -9,18 +9,22 @@ defmodule AlphanumericTest do
     alphas = lowercase <> uppercase
     count = String.length(alphas)
 
-    scoreboard = Alphanumeric.handle(
-      %{retailer: alphas},
-      Scoreboard.empty()
+    {_, scoreboard} = Alphanumeric.handle(
+      {
+        %{retailer: alphas},
+        Scoreboard.empty()
+      }
     )
 
     assert {:alphanumeric, count, count} == hd(scoreboard[:rules])
   end
 
   test "numbers" do
-    scoreboard = Alphanumeric.handle(
-      %{retailer: "0123456789"},
-      Scoreboard.empty()
+    {_, scoreboard} = Alphanumeric.handle(
+      {
+        %{retailer: "0123456789"},
+        Scoreboard.empty()
+      }
     )
 
     assert {:alphanumeric, 10, 10} == hd(scoreboard[:rules])
@@ -30,9 +34,11 @@ defmodule AlphanumericTest do
     symbols = "`~!@#$%^&*()_-+={[}}|\:;\"'<,>.?/"
     s = symbols
 
-    scoreboard = Alphanumeric.handle(
-      %{retailer: s},
-      Scoreboard.empty()
+    {_, scoreboard} = Alphanumeric.handle(
+      {
+        %{retailer: s},
+        Scoreboard.empty()
+      }
     )
 
     assert {:alphanumeric, 0, 0} == hd(scoreboard[:rules])
@@ -46,9 +52,11 @@ defmodule AlphanumericTest do
     s = numbers <> alphas
     count = String.length(s)
 
-    scoreboard = Alphanumeric.handle(
-      %{retailer: s},
-      Scoreboard.empty()
+    {_, scoreboard} = Alphanumeric.handle(
+      {
+        %{retailer: s},
+        Scoreboard.empty()
+      }
     )
 
     assert {:alphanumeric, count, count} == hd(scoreboard[:rules])
@@ -63,9 +71,11 @@ defmodule AlphanumericTest do
     s = numbers <> alphas <> symbols
     count = String.length(numbers <> alphas)
 
-    scoreboard = Alphanumeric.handle(
-      %{retailer: s},
-      Scoreboard.empty()
+    {_, scoreboard} = Alphanumeric.handle(
+      {
+        %{retailer: s},
+        Scoreboard.empty()
+      }
     )
 
     assert {:alphanumeric, count, count} == hd(scoreboard[:rules])

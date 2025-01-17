@@ -1,12 +1,14 @@
 defmodule ReceiptProcessor.Rules.Alphanumeric do
   @name :alphanumeric
 
-  def handle(receipt, scoreboard) do
+  def handle({receipt, scoreboard}) do
     count = receipt_handler(receipt)
     points_awarded = points_handler(count)
     
-    scoreboard
-    |> ReceiptProcessor.Scoreboard.update(@name, count, points_awarded)
+    {
+      receipt,
+      ReceiptProcessor.Scoreboard.update(scoreboard, @name, count, points_awarded)
+    }
   end
 
   defp points_handler(points), do: points
