@@ -4,7 +4,7 @@ defmodule ReceiptProcessor.Rules.Alphanumeric do
   def handle({receipt, scoreboard}) do
     count = receipt_handler(receipt)
     points_awarded = points_handler(count)
-    
+
     {
       receipt,
       ReceiptProcessor.Scoreboard.update(scoreboard, @name, count, points_awarded)
@@ -13,18 +13,17 @@ defmodule ReceiptProcessor.Rules.Alphanumeric do
 
   defp points_handler(points), do: points
 
-  defp receipt_handler(%{retailer: retailer}) do 
-    retailer 
+  defp receipt_handler(%{retailer: retailer}) do
+    retailer
     |> String.to_charlist()
-    |> receipt_handler(0) 
+    |> receipt_handler(0)
   end
 
   defp receipt_handler([], count), do: count
 
-  defp receipt_handler([h | t], count) 
-    when h in ?a..?z or h in ?A..?Z or h in ?0..?9,
-    do: receipt_handler(t, count + 1)
+  defp receipt_handler([h | t], count)
+       when h in ?a..?z or h in ?A..?Z or h in ?0..?9,
+       do: receipt_handler(t, count + 1)
 
   defp receipt_handler([_ | t], count), do: receipt_handler(t, count)
 end
-

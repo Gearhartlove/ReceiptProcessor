@@ -4,7 +4,7 @@ defmodule ReceiptProcessor.Rules.CountPairs do
   def handle({receipt, scoreboard}) do
     result = receipt_handler(receipt)
     points_awarded = points_handler(result)
-    
+
     {
       receipt,
       ReceiptProcessor.Scoreboard.update(scoreboard, @name, result, points_awarded)
@@ -13,7 +13,7 @@ defmodule ReceiptProcessor.Rules.CountPairs do
 
   defp points_handler(count), do: count * 5
 
-  defp receipt_handler(%{items: items}) do 
+  defp receipt_handler(%{items: items}) do
     items
     |> Enum.chunk_every(2, 2, :discard)
     |> Enum.count()

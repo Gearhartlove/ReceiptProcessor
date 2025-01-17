@@ -9,7 +9,7 @@ defmodule ReceiptProcessor.Router do
   post "/receipts/process" do
     ReceiptProcessor.Controller.process(conn)
   end
-  
+
   get "/receipts/:id/points" do
     ReceiptProcessor.Controller.points(conn)
   end

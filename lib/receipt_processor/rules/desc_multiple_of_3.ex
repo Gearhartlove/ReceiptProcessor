@@ -4,7 +4,7 @@ defmodule ReceiptProcessor.Rules.DescMultipleOf3 do
   def handle({receipt, scoreboard}) do
     result = receipt_handler(receipt)
     points_awarded = points_handler(result)
-    
+
     {
       receipt,
       ReceiptProcessor.Scoreboard.update(
@@ -17,7 +17,7 @@ defmodule ReceiptProcessor.Rules.DescMultipleOf3 do
   end
 
   defp points_handler(items) do
-    items 
+    items
     |> Enum.map(fn %{price: price} ->
       price
       |> Float.parse()
@@ -27,8 +27,8 @@ defmodule ReceiptProcessor.Rules.DescMultipleOf3 do
     |> Enum.sum()
   end
 
-  defp receipt_handler(%{items: items}) do 
-    items 
+  defp receipt_handler(%{items: items}) do
+    items
     |> Enum.filter(fn %{shortDescription: shortDescription} ->
       shortDescription
       |> String.trim()

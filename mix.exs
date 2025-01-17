@@ -22,8 +22,10 @@ defmodule ReceiptProcessor.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:bandit, "~> 1.0"}, # HTTP server
-      {:jason, "~> 1.4"} # JSON decoder and encoder
+      # HTTP server
+      {:bandit, "~> 1.0"},
+      # JSON decoder and encoder
+      {:jason, "~> 1.4"}
     ]
   end
 end

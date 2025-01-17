@@ -8,9 +8,10 @@ defmodule ReceiptProcessor.Controller do
     id = :erlang.unique_integer()
     ReceiptProcessor.Storage.save(id, {receipt, scoreboard})
 
-    response = %{id: id}
+    response =
+      %{id: id}
       |> JSON.encode!()
-    
+
     send_resp(conn, 200, response)
   end
 
@@ -18,7 +19,8 @@ defmodule ReceiptProcessor.Controller do
     id = conn.params[:id]
     points = ReceiptProcessor.Storage.get(id)
 
-    response = %{points: points} 
+    response =
+      %{points: points}
       |> JSON.encode!()
 
     send_resp(conn, 200, response)
