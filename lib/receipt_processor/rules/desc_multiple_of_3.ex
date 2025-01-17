@@ -22,7 +22,7 @@ defmodule ReceiptProcessor.Rules.DescMultipleOf3 do
       price
       |> Float.parse()
       |> then(fn {number, _} -> number * 0.2 end)
-      |> round()
+      |> Float.ceil()
     end)
     |> Enum.sum()
   end

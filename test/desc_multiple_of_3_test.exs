@@ -41,15 +41,15 @@ defmodule DescMultipleOf3Test do
       }
     )
 
-    assert {:desc_multiple_of_3, 3, 7} == hd(scoreboard[:rules])
+    assert {:desc_multiple_of_3, 3, 9.0} == hd(scoreboard[:rules])
   end
 
   test "mix" do
     {_, scoreboard} = DescMultipleOf3.handle(
       {
         %{items: [
-          %{shortDescription: "ABC", price: "12.00"}, # 2 after rules
-          %{shortDescription: "ABCDEF", price: "12.00"}, # 2 after rules
+          %{shortDescription: "ABC", price: "12.00"}, # 3 after rules
+          %{shortDescription: "ABCDEF", price: "12.00"}, # 3 after rules
           %{shortDescription: "ABCDEFGHI", price: "13.00"}, # 3 after rules
           %{shortDescription: "AB", price: "12.23"},
           %{shortDescription: "ABCD", price: "12.23"},
@@ -59,6 +59,6 @@ defmodule DescMultipleOf3Test do
       }
     )
 
-    assert {:desc_multiple_of_3, 3, 7} == hd(scoreboard[:rules])
+    assert {:desc_multiple_of_3, 3, 9.0} == hd(scoreboard[:rules])
   end
 end

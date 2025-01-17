@@ -6,7 +6,7 @@ defmodule MultipleOf25Test do
   test "multiple of 0.25" do
     {_, scoreboard} = MultipleOf25.handle(
       {
-        %{total: 10.50},
+        %{total: "10.50"},
         Scoreboard.empty()
       }
     )
@@ -17,7 +17,7 @@ defmodule MultipleOf25Test do
   test "not multiple of 0.25" do
     {_, scoreboard} = MultipleOf25.handle(
       {
-        %{total: 10.60},
+        %{total: "10.60"},
         Scoreboard.empty()
       }
     )

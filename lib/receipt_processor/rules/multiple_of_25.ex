@@ -15,6 +15,7 @@ defmodule ReceiptProcessor.Rules.MultipleOf25 do
   defp points_handler(false), do: 0
 
   defp receipt_handler(%{total: total}) do 
+    {total, _} = Float.parse(total)
     :math.fmod(total, 0.25) == 0.0
   end
 end
