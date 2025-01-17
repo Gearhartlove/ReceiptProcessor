@@ -6,9 +6,12 @@ defmodule ReceiptProcessor.Storage do
   end
 
   def save(receiptId, {receipt, scoreboard}) do
-    storage()
-    |> Map.put(receiptId, {receipt, scoreboard})
+    Agent.update(__MODULE__, fn storage -> 
+      Map.put(storage, receiptId, {receipt, scoreboard}) 
+    end)
   end
+
+  def get(), do: storage()
 
   def get(receiptId) do
     storage()

@@ -5,6 +5,8 @@ defmodule ReceiptProcessorTest do
   @opts ReceiptProcessor.Router.init([])
 
   test "simple receipt" do
+    _ = ReceiptProcessor.Storage.start_link(%{})
+
     receipt =
       """
       {
@@ -17,12 +19,33 @@ defmodule ReceiptProcessorTest do
         ]
       }
       """
+    
+    # save the receipt
+    conn = conn(:post, "/receipts/process", receipt) 
+    |> put_req_header("content-type", "application/json")
+    |> put_req_header("accept", "application/json")
 
-    conn = conn(:post, "/receipts/process", JSON.decode!(receipt))
     conn = ReceiptProcessor.Router.call(conn, @opts)
 
     assert conn.state == :sent
     assert conn.status == 200
-    assert conn.resp_body == "OK"
+    assert is_binary(conn.resp_body)
+
+    %{"id" => id} = conn.resp_body
+      |> Jason.decode!()
+
+    IO.puts("id=[#{id}] storage=[#{inspect(ReceiptProcessor.Storage.get())}]")
+
+    # get the receipt from id
+    conn = conn(:get, "/receipts/#{id}/points")
+    conn = ReceiptProcessor.Router.call(conn, @opts)
+    
+    assert conn.state == :sent
+    assert conn.status == 200
+
+    %{"points" => points} = conn.resp_body
+      |> Jason.decode!()
+
+    assert points == 31
   end
 end

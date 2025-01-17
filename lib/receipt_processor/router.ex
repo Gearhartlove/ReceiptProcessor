@@ -3,7 +3,7 @@ defmodule ReceiptProcessor.Router do
 
   plug(Plug.Logger)
   plug(:match)
-  plug(Plug.Parsers, parsers: [:json], json_decoder: JSON)
+  plug(Plug.Parsers, parsers: [:json], json_decoder: {Jason, :decode!, [[keys: :atoms]]})
   plug(:dispatch)
 
   post "/receipts/process" do
