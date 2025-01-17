@@ -14,7 +14,7 @@ defmodule AlphanumericTest do
       Scoreboard.empty()
     )
 
-    assert {:alphanumeric, nil, count} == hd(scoreboard[:rules])
+    assert {:alphanumeric, count, count} == hd(scoreboard[:rules])
   end
 
   test "numbers" do
@@ -23,7 +23,7 @@ defmodule AlphanumericTest do
       Scoreboard.empty()
     )
 
-    assert {:alphanumeric, nil, 10} == hd(scoreboard[:rules])
+    assert {:alphanumeric, 10, 10} == hd(scoreboard[:rules])
   end
 
   test "symbols" do
@@ -35,7 +35,7 @@ defmodule AlphanumericTest do
       Scoreboard.empty()
     )
 
-    assert {:alphanumeric, nil, 0} == hd(scoreboard[:rules])
+    assert {:alphanumeric, 0, 0} == hd(scoreboard[:rules])
   end
 
   test "numbers and alphas" do
@@ -51,7 +51,7 @@ defmodule AlphanumericTest do
       Scoreboard.empty()
     )
 
-    assert {:alphanumeric, nil, count} == hd(scoreboard[:rules])
+    assert {:alphanumeric, count, count} == hd(scoreboard[:rules])
   end
 
   test "number and alphas and symbols" do
@@ -68,7 +68,6 @@ defmodule AlphanumericTest do
       Scoreboard.empty()
     )
 
-    assert {:alphanumeric, nil, count} == hd(scoreboard[:rules])
+    assert {:alphanumeric, count, count} == hd(scoreboard[:rules])
   end
-
 end

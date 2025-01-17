@@ -2,17 +2,14 @@ defmodule ReceiptProcessor.Rules.Alphanumeric do
   @name :alphanumeric
 
   def handle(receipt, scoreboard) do
-    points_awarded = receipt
-    |> receipt_handler() 
-    |> points_handler()
+    count = receipt_handler(receipt)
+    points_awarded = points_handler(count)
     
     scoreboard
-    |> ReceiptProcessor.Scoreboard.update(@name, nil, points_awarded)
+    |> ReceiptProcessor.Scoreboard.update(@name, count, points_awarded)
   end
 
-  defp points_handler(points) do
-    points
-  end
+  defp points_handler(points), do: points
 
   defp receipt_handler(%{retailer: retailer}) do 
     retailer 
