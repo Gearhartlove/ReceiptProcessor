@@ -1,5 +1,5 @@
-defmodule ReceiptProcessor.Rules.RoundDollar do
-  @name :round_dollar
+defmodule ReceiptProcessor.Rules.MultipleOf25 do
+  @name :multiple_of_25
 
   def handle(receipt, scoreboard) do
     result = receipt_handler(receipt)
@@ -9,12 +9,10 @@ defmodule ReceiptProcessor.Rules.RoundDollar do
     |> ReceiptProcessor.Scoreboard.update(@name, result, points_awarded)
   end
 
-  defp points_handler(true), do: 50
+  defp points_handler(true), do: 25
   defp points_handler(false), do: 0
 
   defp receipt_handler(%{total: total}) do 
-    [_, cents] = String.split(total, ".")
-    cents == "00"
+    :math.fmod(total, 0.25) == 0.0
   end
 end
-
