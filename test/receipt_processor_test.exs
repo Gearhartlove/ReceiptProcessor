@@ -48,4 +48,44 @@ defmodule ReceiptProcessorTest do
 
     assert points == 31
   end
+
+  test "invalid receipt" do
+    _ = ReceiptProcessor.Storage.start_link(%{})
+
+    receipt =
+      # receipt is missing 'total'
+      """
+      {
+        "retailer": "Target",
+        "purchaseDate": "2022-01-02",
+        "purchaseTime": "13:13",
+        "items": [
+            {"shortDescription": "Pepsi - 12-oz", "price": "1.25"}
+        ]
+      }
+      """
+    
+    # save the receipt
+    conn = conn(:post, "/receipts/process", receipt) 
+    |> put_req_header("content-type", "application/json")
+    |> put_req_header("accept", "application/json")
+
+    conn = ReceiptProcessor.Router.call(conn, @opts)
+
+    assert conn.state == :sent
+    assert conn.status == 404
+    assert conn.resp_body == "The receipt is invalid."
+  end
+
+  test "fetch non existent scoreboard" do
+    _ = ReceiptProcessor.Storage.start_link(%{})
+
+    id = "foobar"
+    conn = conn(:get, "/receipts/#{id}/points")
+    conn = ReceiptProcessor.Router.call(conn, @opts)
+    
+    assert conn.state == :sent
+    assert conn.status == 404
+    assert conn.resp_body == "No receipt found for that ID."
+  end
 end
