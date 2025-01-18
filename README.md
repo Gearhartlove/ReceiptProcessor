@@ -2,7 +2,7 @@
 
 Score receipts with custom rules.
 
-## Installation
+## Run the application
 
 ```
 docker build -t gearhartlove/receipt_processor
