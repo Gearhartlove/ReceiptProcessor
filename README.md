@@ -5,7 +5,8 @@ Score receipts with custom rules.
 ## Run the application
 
 ```
-$ docker build -t gearhartlove/receipt_processor
+# from the root directory of the project
+$ docker build -t gearhartlove/receipt_processor .
 $ docker image ls # you should see 'gearhartlove/receipt_processor in your list'
 $ docker run -it -p 4000:4000 gearhartlove/receipt_processor 
 ```
