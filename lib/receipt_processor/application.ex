@@ -9,7 +9,8 @@ defmodule ReceiptProcessor.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {Bandit, scheme: :http, plug: ReceiptProcessor.Router}
+      {Bandit, scheme: :http, plug: ReceiptProcessor.Router},
+      {ReceiptProcessor.Storage, %{}}
     ]
 
     opts = [strategy: :one_for_one, name: ReceiptProcessor.Supervisor]
