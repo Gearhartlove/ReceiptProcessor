@@ -21,19 +21,32 @@ you run this server.
 
 To test if the server you can run these simple curl scripts in /scripts
 ```
-$ cd scripts
-$ ./process.sh | ./points.sh
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   561  100    28  100   533  13339   247k --:--:-- --:--:-- --:--:--  273k
+curl -H 'Content-Type: application/json' \
+	-d '{
+  "retailer": "Target",
+  "purchaseDate": "2022-01-01",
+  "purchaseTime": "13:01",
+  "items": [
+    {
+      "shortDescription": "Mountain Dew 12PK",
+      "price": "6.49"
+    },{
+      "shortDescription": "Emils Cheese Pizza",
+      "price": "12.25"
+    },{
+      "shortDescription": "Knorr Creamy Chicken",
+      "price": "1.26"
+    },{
+      "shortDescription": "Doritos Nacho Cheese",
+      "price": "3.35"
+    },{
+      "shortDescription": "   Klarbrunn 12-PK 12 FL OZ  ",
+      "price": "12.00"
+    }
+  ],
+  "total": "35.35"
+}' \
+	-X POST \
+	http://localhost:4000/receipts/process
 
-id=-576460752303423486
-
-HTTP/1.1 200 OK
-date: Sat, 18 Jan 2025 01:10:54 GMT
-content-length: 15
-vary: accept-encoding
-cache-control: max-age=0, private, must-revalidate
-
-{"points":28.0}⏎
 ```
