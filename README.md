@@ -1,21 +1,19 @@
 # ReceiptProcessor
 
-**TODO: Add description**
+Score receipts with custom rules.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `receipt_processor` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:receipt_processor, "~> 0.1.0"}
-  ]
-end
+```
+docker build -t gearhartlove/receipt_processor
+docker image ls # you should see 'gearhartlove/receipt_processor in your list'
+docker run -it -p 4000:4000 gearhartlove/receipt_processor 
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/receipt_processor>.
+If you see this, than your server is running and ready to receive requests on port 4000. 
+If you have another application accepting input on port 4000 you will need to close it while 
+you run this server.
 
+```
+01:05:23.606 [info] Running ReceiptProcessor.Router with Bandit 1.6.4 at 0.0.0.0:4000 (http)
+```

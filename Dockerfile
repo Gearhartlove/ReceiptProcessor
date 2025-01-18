@@ -1,5 +1,7 @@
 FROM erlang:27
 
+EXPOSE 4000
+
 # elixir expects utf8.
 ENV ELIXIR_VERSION="v1.18.1" \
 	LANG=C.UTF-8
@@ -17,4 +19,14 @@ RUN set -xe \
 	&& find /usr/local/src/elixir/ -type f -not -regex "/usr/local/src/elixir/lib/[^\/]*/lib.*" -exec rm -rf {} + \
 	&& find /usr/local/src/elixir/ -type d -depth -empty -delete
 
-CMD ["iex"]
+ENV MIX_ENV="prod"
+# install mix dependencies
+COPY mix.exs mix.lock ./
+RUN mix deps.get --only $MIX_ENV
+RUN mix deps.compile
+COPY lib lib
+# compile release
+RUN mix compile
+RUN mix release
+USER nobody
+CMD ["_build/prod/rel/receipt_processor/bin/receipt_processor", "start"]
